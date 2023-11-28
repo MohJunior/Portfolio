@@ -572,28 +572,57 @@
 
       <div class="col-lg-7 mt-5 mt-lg-0">
         <form name="contact" netlify>
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">Your Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="email">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject" required>
-              </div>
-              <div class="form-group">
-                <label for="message">Message</label>
-                <textarea class="form-control" name="message" id="message" rows="6" required></textarea>
-              </div>
-              <div class="text-center">
-                <button type="submit" class="btn btn-primary">Send Message</button>
-              </div>
-            </form>
+          <input type="hidden" name="form-name" value="contact" /> <!-- Required for Netlify forms -->
+          
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label for="name">Your Name</label>
+              <input type="text" name="name" class="form-control" id="name" required>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="email">Your Email</label>
+              <input type="email" class="form-control" name="email" id="email" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" class="form-control" name="subject" id="subject" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea class="form-control" name="message" id="message" rows="6" required></textarea>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </div>
+        </form>
+
+        <script>
+          function submitForm(event) {
+            event.preventDefault(); // Prevent the default form submission
+        
+            // Get form data
+            const form = document.forms['contact'];
+            const formData = new FormData(form);
+        
+            // Send form data to Netlify using Fetch API
+            fetch('/', {
+              method: 'POST',
+              body: formData,
+            })
+              .then((response) => {
+                // Handle the response if needed
+                console.log('Form submitted successfully:', response);
+                // Redirect to a thank you page or display a success message
+              })
+              .catch((error) => {
+                // Handle errors if any
+                console.error('Error submitting the form:', error);
+                // Display an error message to the user
+              });
+          }
+        </script>
+        
           </div>
         </div>
       </div>
